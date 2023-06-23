@@ -19,7 +19,7 @@ import random
 
 
 
-
+@login_required(login_url='signin')
 def Addcustomers(request):
 
     message=''
@@ -43,6 +43,7 @@ def Addcustomers(request):
     Name = request.user
     return render(request, 'backend/page-add-customers.html', locals())
 
+@login_required(login_url='signin')
 def Listcustomers(request):
     customers = AddCustomer.objects.all()
     if request.method == "GET":
@@ -58,6 +59,7 @@ def DeleteCustomer(request, id):
 
     return redirect('customerlist')
 
+@login_required(login_url='signin')
 def Addpurchase(request):
 
     #message=''
@@ -120,6 +122,7 @@ def Addpurchase(request):
     Name = request.user
     return render(request, 'backend/page-add-purchase.html', locals())
 
+@login_required(login_url='signin')
 def Listpurchase(request):
     purchases = AddPurchase.objects.all()
     if request.method == "GET":
@@ -296,6 +299,7 @@ def UpdateSale(request, id):
     
     return render(request, 'backend/update-add-sale.html', locals())
 
+@login_required(login_url='signin')
 def Addreturn(request):
 
     message=''
@@ -334,6 +338,7 @@ def Addreturn(request):
     Name = request.user
     return render(request, 'backend/page-add-return.html', locals())
 
+@login_required(login_url='signin')
 def Listreturn(request):
     returns = AddReturn.objects.all()
     if request.method == "GET":
@@ -349,6 +354,7 @@ def DeleteReturn(request, id):
 
     return redirect('returnlist')
 
+@login_required(login_url='signin')
 def Addsale(request):
 
     #message=''
@@ -490,6 +496,7 @@ def Addsale(request):
     Name = request.user
     return render(request, 'backend/page-add-sale.html', locals())
 
+@login_required(login_url='signin')
 def Listsale(request):
     sales = AddSale.objects.all()
     if request.method == "GET":
@@ -506,6 +513,7 @@ def DeleteSale(request, id):
 
     return redirect('salelist')
 
+@login_required(login_url='signin')
 def Addsupplier(request):
 
     message=''
@@ -529,6 +537,7 @@ def Addsupplier(request):
     Name = request.user
     return render(request, 'backend/page-add-supplier.html', locals())
 
+@login_required(login_url='signin')
 def Listsupplier(request):
     suppliers = AddSupplier.objects.all()
     if request.method == "GET":
@@ -544,6 +553,7 @@ def DeleteSupplier(request, id):
 
     return redirect('supplierlist')
 
+@login_required(login_url='signin')
 def Report(request):
 
     Name = request.user
@@ -622,6 +632,7 @@ def Error(request):
     Name = request.user
     return render(request, 'backend/pages-error.html', locals())
 
+@login_required(login_url='signin')
 def Invoice(request):
     Name = request.user
     # # Random number generator start
@@ -734,7 +745,7 @@ def Invoice(request):
         pass
     return render(request, 'backend/pages-invoice.html', locals())
 
-
+@login_required(login_url='signin')
 def StockSummary(request):
     Name = request.user
     stock_summary = AddPurchase.objects.all()
