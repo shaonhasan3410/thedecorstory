@@ -59,7 +59,6 @@ def DeleteCustomer(request, id):
 
     return redirect('customerlist')
 
-@login_required(login_url='signin')
 def Addpurchase(request):
 
     #message=''
@@ -354,7 +353,6 @@ def DeleteReturn(request, id):
 
     return redirect('returnlist')
 
-@login_required(login_url='signin')
 def Addsale(request):
 
     #message=''
@@ -859,7 +857,15 @@ def Base(request):
 
 
     total_order_qty = AddSale.objects.aggregate(total_qty=Sum('order_quantity'))['total_qty']
-    total_order_amount = AddSale.objects.aggregate(total_price=Sum('order_discount'))['total_price']
+    total_order_amount = AddSale.objects.aggregate(order_discount=Sum('order_discount'))['order_discount']
+    unit_price = AddSale.objects.aggregate(unit_price=Sum('unit_price'))['unit_price']
+    order_quantity = AddSale.objects.aggregate(order_quantity=Sum('order_quantity'))['order_quantity']
+    shipping_charge = AddSale.objects.aggregate(shipping_charge=Sum('shipping_charge'))['shipping_charge']
     total_purchase_cost = AddPurchase.objects.aggregate(total_cost=Sum('total_price'))['total_cost']
+    order_price = unit_price * order_quantity
+    order_price_with_ship = order_price + shipping_charge
+
+    profit_margin = total_order_amount - order_price_with_ship
+
     return render(request, 'index.html', locals())
 
