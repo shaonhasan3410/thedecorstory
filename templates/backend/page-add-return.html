@@ -546,7 +546,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Order ID *</label>
-                                        <input type="text" class="form-control" placeholder="Enter Order ID" name="order_id" id="order_id" required>
+                                        <input type="text" class="form-control" placeholder="Enter Order ID" name="order_id" id="lookuporder" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
@@ -658,5 +658,50 @@
     
     <!-- app JavaScript -->
     <script src="{% static 'js/app.js' %}"></script>
+    <!--Order id Wise Lookup Start-->
+
+    <script>
+        var lookup = $("#lookuporder");
+        lookup.on('change', function () {
+            if (lookup.val() === "") {
+                document.getElementById("product_name").value = "Product Name";
+                document.getElementById("product_category").value = "Product Category";
+                document.getElementById("customer_name").value = "Customer Name";
+                document.getElementById("customer_phone").value = "Customer Phone";
+                document.getElementById("customer_email").value = "Customer Email";
+                document.getElementById("order_discount").value = "Order Discount";
+                document.getElementById("payment_status").value = "Payment Status";
+            }
+            $.ajax({
+                url: window.location.href,
+                type: 'GET',
+                data: {
+                    'customer_phone': lookup.val()
+                },
+                success: function (res) {
+                    if (res.status === 'success') {
+                        document.getElementById("product_name").value = res.product_name;
+                        document.getElementById("product_category").value = res.product_category;
+                        document.getElementById("customer_name").value = res.customer_name;
+                        document.getElementById("customer_phone").value = res.customer_phone;
+                        document.getElementById("customer_email").value = res.customer_email;
+                        document.getElementById("order_discount").value = res.order_discount;
+                        document.getElementById("payment_status").value = res.payment_status;
+                    }
+                    if (res.status === 'failed') {
+                        document.getElementById("product_name").value = "Product Name";
+                        document.getElementById("product_category").value = "Product Category";
+                        document.getElementById("customer_name").value = "Customer Name";
+                        document.getElementById("customer_phone").value = "Customer Phone";
+                        document.getElementById("customer_email").value = "Customer Email";
+                        document.getElementById("order_discount").value = "Order Discount";
+                        document.getElementById("payment_status").value = "Payment Status";
+                    }
+                }
+            });
+        });
+    </script>
+
+    <!--Order id Wise Lookup End-->
   </body>
 </html>
