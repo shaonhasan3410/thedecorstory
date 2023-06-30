@@ -301,6 +301,38 @@ def UpdateSale(request, id):
 @login_required(login_url='signin')
 def Addreturn(request):
 
+    #Order Id Wise Lookup --------------------- Start
+    try:
+        lookupCode = request.GET.get('order_id')
+        if lookupCode:
+            category = AddSale.objects.get(product_id=lookupCode)
+            product_name = category.product_name
+            product_category = category.product_category
+            customer_name = category.customer_name
+            customer_phone = category.customer_phone
+            customer_email = category.customer_email
+            order_discount = category.order_discount
+            payment_status = category.payment_status
+            
+            response_data = {
+                'status': 'success',
+                'product_name': product_name,
+                'product_category': product_category,
+                'customer_name': customer_name,
+                'customer_phone': customer_phone,
+                'customer_email': customer_email,
+                'order_discount': order_discount,
+                'payment_status':payment_status,
+            }
+            return JsonResponse(response_data)
+    except Exception as e:
+        response_data = {
+                'status': 'failed'
+            }
+        return JsonResponse(response_data)
+    
+    #lookup --------------------- End
+
     message=''
     if request.method == "POST":
 

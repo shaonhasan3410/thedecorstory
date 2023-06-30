@@ -608,7 +608,7 @@
                             </div>
                             <div class="card-body">
                                 <form method="POST" action="" enctype="multipart/form-data" data-toggle="validator"
-                                    id="saleform">
+                                    id="saleform" onchange="calculateTotal()">
                                     {% csrf_token %}
                                     <div class="row">
                                         <div class="col-md-6">
@@ -726,7 +726,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Tax% *</label>
+                                                <label>Profit % *</label>
                                                 <input type="text" class="form-control" placeholder="Enter Tax"
                                                     name="order_tax" id="order_tax"  value="{{product.order_tax}}">
                                                 <div class="help-block with-errors"></div>
@@ -750,7 +750,7 @@
                                             <div class="form-group">
                                                 <label>Due Amount *</label>
                                                 <input type="text" class="form-control" placeholder="Due Amount"
-                                                    name="total_amount" id="total_amount" value="{{product.total_amount}}">
+                                                    name="total_amount" id="total_amount" value="{{product.total_amount}}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
