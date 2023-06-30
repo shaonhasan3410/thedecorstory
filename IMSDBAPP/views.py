@@ -855,6 +855,75 @@ def Base(request):
 
     top_product = AddSale.objects.all()
 
+    Name = request.user
+    stock_report = AddPurchase.objects.all()
+    sale_stock = AddSale.objects.filter(payment_status="Due")
+
+# Calculate Daily Sale Start
+    sales = AddSale.objects.all()
+    dataset = []
+    for i in sales:
+        dataset.append({'date':i.date.strftime("%Y-%m-%d"),'total':i.order_discount})
+
+    totals = {}
+
+    for item in dataset:
+        date = item['date']
+        total = item['total']
+        if date in totals:
+            totals[date] += total
+        else:
+            totals[date] = total
+
+    dataset = [{'date': date, 'total': total} for date, total in totals.items()]
+
+# Calculate Daily Sale End
+
+# Low Stock Qty Summary Start---    
+
+    # Define the threshold value for low stock quantity
+    low_quantity_threshold = 5
+    
+    # Calculate the grouped stock with total quantity and amount
+    low_stock = stock_report.values('product_name').annotate(
+        total_product_quantity=Sum('product_quantity'),
+        total_price=Sum('total_price')
+    ).order_by('total_product_quantity')
+    
+    # Add additional field for low stock quantity
+    for group in low_stock:
+        group['is_low_quantity'] = group['total_product_quantity'] < low_quantity_threshold
+
+# Low Stock Summary End
+
+    # Customer Name Wise Summary Start
+    customer_due = sale_stock.values('customer_name').annotate(
+        total_order_quantity=Sum('order_quantity'),
+        total_order_amount=Sum('total_amount'),
+    ).order_by('total_order_amount')
+    # Customer Name Wise Summary End
+
+    # supplier Name Wise Start
+    supplier_stock = stock_report.values('supplier_name').annotate(
+        total_product_quantity=Sum('product_quantity'),
+        total_price=Sum('total_price')
+    ).order_by('supplier_name')
+    # Supplier Name Wise End
+
+    # Category Name Wise Start
+    category_stock = stock_report.values('product_category').annotate(
+        total_product_quantity=Sum('product_quantity'),
+        total_price=Sum('total_price')
+    ).order_by('product_category')
+    # Category Name Wise End
+
+    # Product Name Wise Stock Summary Start
+    grouped_stock = stock_report.values('product_name').annotate(
+        total_product_quantity=Sum('product_quantity'),
+        total_price=Sum('total_price')
+    ).order_by('product_name')
+    # Product Name Wise Stock Summary End
+
 
     total_order_qty = AddSale.objects.aggregate(total_qty=Sum('order_quantity'))['total_qty']
     total_order_amount = AddSale.objects.aggregate(order_discount=Sum('order_discount'))['order_discount']

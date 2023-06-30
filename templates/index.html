@@ -202,7 +202,7 @@
                                   </li>
                           </ul>
                       </li>
-                      <li class="">
+                      {% comment %} <li class="">
                           <a href="{% url 'report' %}" class="">
                               <svg class="svg-icon" id="p-dash7" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>
@@ -210,7 +210,7 @@
                               <span class="ml-4">Reports</span>
                           </a>
                           
-                      </li>
+                      </li> {% endcomment %}
                       
                       <li class=" ">
                         <!--other
@@ -485,17 +485,18 @@
       </div>      <div class="content-page">
      <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-4">
+
+            <div class="col-lg-12">
                 <div class="card card-transparent card-block card-stretch card-height border-none">
                     <div class="card-body p-0 mt-lg-2 mt-0">
-                        <h3 class="mb-3">Hi {{name}}, {{greeting}}</h3>
+                        <h3 class="mb-3">Hi {{Name}}, {{greeting}}</h3>
                         <p class="mb-0 mr-4">Your dashboard gives you views of key performance or business process.</p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="row">
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-lg-3 col-md-3">
                         <div class="card card-block card-stretch card-height">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-4 card-total-sale">
@@ -514,7 +515,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-lg-3 col-md-3">
                         <div class="card card-block card-stretch card-height">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-4 card-total-sale">
@@ -533,7 +534,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-lg-3 col-md-3">
                         <div class="card card-block card-stretch card-height">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-4 card-total-sale">
@@ -552,128 +553,283 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="card card-block card-stretch card-height">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-4 card-total-sale">
+                                    <div class="icon iq-icon-box-2 bg-info-light">
+                                        <img src="{% static 'images/product/1.png' %}" class="img-fluid" alt="image">
+                                    </div>
+                                    <div>
+                                        <p class="mb-2">PNL</p>
+                                        <h4>৳ {{profit_margin}}</h4>
+                                    </div>
+                                </div>                                
+                                <div class="iq-progress-bar mt-2">
+                                    <span class="bg-info iq-progress progress-1" data-percent="85">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
             <div class="col-lg-6">
                 <div class="card card-block card-stretch card-height">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Overview</h4>
-                        </div>                        
-                        <div class="card-header-toolbar d-flex align-items-center">
-                            <div class="dropdown">
-                                <span class="dropdown-toggle dropdown-bg btn" id="dropdownMenuButton001"
-                                    data-toggle="dropdown">
-                                    This Month<i class="ri-arrow-down-s-line ml-1"></i>
-                                </span>
-                                <div class="dropdown-menu dropdown-menu-right shadow-none"
-                                    aria-labelledby="dropdownMenuButton001">
-                                    <a class="dropdown-item" href="#">Year</a>
-                                    <a class="dropdown-item" href="#">Month</a>
-                                    <a class="dropdown-item" href="#">Week</a>
-                                </div>
-                            </div>
+                            <h4 class="card-title">Daily Sale</h4>
                         </div>
                     </div>                    
                     <div class="card-body">
-                        <div id="layout1-chart1"></div>
+                        <canvas id="layout1-chart-5"></canvas>
                     </div>
                 </div>
             </div>
+            
+
+            <!--New Box Start-->
+
             <div class="col-lg-6">
                 <div class="card card-block card-stretch card-height">
-                    <div class="card-header d-flex align-items-center justify-content-between">
+                    <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Revenue Vs Cost</h4>
-                        </div>
+                            <h4 class="card-title">Supplier Stock Summary</h4>
+                        </div>                        
                         <div class="card-header-toolbar d-flex align-items-center">
-                            <div class="dropdown">
-                                <span class="dropdown-toggle dropdown-bg btn" id="dropdownMenuButton002"
-                                    data-toggle="dropdown">
-                                    This Month<i class="ri-arrow-down-s-line ml-1"></i>
-                                </span>
-                                <div class="dropdown-menu dropdown-menu-right shadow-none"
-                                    aria-labelledby="dropdownMenuButton002">
-                                    <a class="dropdown-item" href="#">Yearly</a>
-                                    <a class="dropdown-item" href="#">Monthly</a>
-                                    <a class="dropdown-item" href="#">Weekly</a>
-                                </div>
+                            
+                        </div>
+                    </div>   
+                    <div class="card-body">
+
+
+
+                        <div class="col-lg-12" style="height: 52vh; overflow: scroll;"> 
+                            <div>
+                            <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
+                                <thead class="bg-white text-uppercase">
+                                    <tr class="ligth ligth-data">
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">SN</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Supplier Name</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Stock Quantity</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Stock Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="ligth-body">
+                                    {% for group in supplier_stock %}
+                                        <tr>
+                                            <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ forloop.counter }}</td>
+                                            <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.supplier_name }}</td>
+                                            <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_product_quantity }}</td>
+                                            <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_price }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    
+
+                                </tbody>
+                            </table>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="layout1-chart-2" style="min-height: 360px;"></div>
+
+
+                        
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8">
+
+            {% comment %} <div class="col-lg-6">
                 <div class="card card-block card-stretch card-height">
-                    <div class="card-header d-flex align-items-center justify-content-between">
+                    <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Top Products</h4>
-                        </div>
+                            <h4 class="card-title">Category Wise Stock Summary</h4>
+                        </div>                        
                         <div class="card-header-toolbar d-flex align-items-center">
+                            
                         </div>
-                    </div>
+                    </div>   
                     <div class="card-body">
-                        <ul class="list-unstyled row top-product mb-0">
-                            {% for top in top_product %}
-                            <li class="col-lg-3" style="width: 210px; height: 210px;">
-                                <div class="card card-block card-stretch card-height mb-0" style="width: 200px; height: 200px;">
-                                    <div class="card-body" style="width: 200px; height: 200px;">
-                                        <div class="bg-warning-light rounded" style="width: 200px; height: 200px;">
-                                            <img src="{{top.product_image.url}}" class="style-img img-fluid m-auto p-3" alt="Product Image" style="width: 200px; height: 200px;">
-                                        </div>
-                                        <div class="style-text text-left mt-3">
-                                            <h6 class="mb-1">{{top.product_name}}</h6>
-                                            <p class="mb-0">{{top.order_quantity}} Item</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>         
-            <div class="col-lg-4">  
-                <div class="card card-block card-stretch card-height-helf">
-                    <div class="card-body">
-                        <div class="d-flex align-items-top justify-content-between">
-                            <div class="">
-                                <p class="mb-0">PNL</p>
-                                <h5>৳ {{profit_margin}}</h5>
+
+
+
+                        <div class="col-lg-12" style="height: 52vh; overflow: scroll;"> 
+                            <div>
+                            <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
+                                <thead class="bg-white text-uppercase">
+                                    <tr class="ligth ligth-data">
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">SN</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Category Name</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Stock Quantity</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="ligth-body">
+                                    {% for group in category_stock %}
+                                    <tr>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{forloop.counter}}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{group.product_category}}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{group.total_product_quantity}}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{group.total_price}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                             </div>
                         </div>
-                        <div id="layout1-chart-3" class="layout-chart-1"></div>
                     </div>
                 </div>
-                <div class="card card-block card-stretch card-height-helf">
+            </div> {% endcomment %}
+
+            <div class="col-lg-12">
+                <div class="card card-block card-stretch card-height">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Product Name Wise Stock Summary</h4>
+                        </div>                        
+                        <div class="card-header-toolbar d-flex align-items-center">
+                            
+                        </div>
+                    </div>   
                     <div class="card-body">
-                        <div class="d-flex align-items-top justify-content-between">
-                            <div class="">
-                                <p class="mb-0">Expenses</p>
-                                <h5>$ 45,8956 K</h5>
-                            </div>
-                            <div class="card-header-toolbar d-flex align-items-center">
-                                <div class="dropdown">
-                                    <span class="dropdown-toggle dropdown-bg btn" id="dropdownMenuButton004"
-                                        data-toggle="dropdown">
-                                        This Month<i class="ri-arrow-down-s-line ml-1"></i>
-                                    </span>
-                                    <div class="dropdown-menu dropdown-menu-right shadow-none"
-                                        aria-labelledby="dropdownMenuButton004">
-                                        <a class="dropdown-item" href="#">Year</a>
-                                        <a class="dropdown-item" href="#">Month</a>
-                                        <a class="dropdown-item" href="#">Week</a>
-                                    </div>
-                                </div>
+
+
+
+                        <div class="col-lg-12" style="height: 52vh; overflow: scroll;"> 
+                            <div>
+                            <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
+                                <thead class="bg-white text-uppercase">
+                                    
+                                    <tr class="ligth ligth-data">
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">SN</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Product Name</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Product Category</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Brand Name</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Supplier Name</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Product Color</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Product Size</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Stock Quantity</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="ligth-body">
+                                    {% for group in grouped_stock %}
+                                    <tr>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ forloop.counter}}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.product_name }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.product_category }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.brand_name }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.supplier_name }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.product_color }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.product_size }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_product_quantity }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_price }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                             </div>
                         </div>
-                        <div id="layout1-chart-4" class="layout-chart-2"></div>
+
+
+
+                        
                     </div>
                 </div>
             </div>
+
+
+            <div class="col-lg-6">
+                <div class="card card-block card-stretch card-height">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Customer Summary</h4>
+                        </div>                        
+                        <div class="card-header-toolbar d-flex align-items-center">
+                            
+                        </div>
+                    </div>   
+                    <div class="card-body">
+
+
+
+                        <div class="col-lg-12" style="height: 52vh; overflow: scroll;"> 
+                            <div>
+                            <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
+                                <thead class="bg-white text-uppercase">
+                                    <tr class="ligth ligth-data">
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">SN</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Customer Name</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Ordet Qty</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Due Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="ligth-body">
+                                    {% for order in customer_due %}
+                                    <tr>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ forloop.counter }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.customer_name }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_order_quantity }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_order_amount }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+
+
+
+                        
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-6">
+                <div class="card card-block card-stretch card-height">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Low Stock Summary</h4>
+                        </div>                        
+                        <div class="card-header-toolbar d-flex align-items-center">
+                            
+                        </div>
+                    </div>   
+                    <div class="card-body">
+
+
+
+                        <div class="col-lg-12" style="height: 52vh; overflow: scroll;"> 
+                            <div>
+                            <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%; ">
+                                <thead class="bg-white text-uppercase">
+                                    <tr class="ligth ligth-data">
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">SN</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Product Name</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Current Stock</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="ligth-body">
+                                    {% for group in low_stock %}
+                                    <tr>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ forloop.counter }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.product_name }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_product_quantity }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_price }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                        <div id="dataset" style="display: none;">{{ dataset|json_script:"dataset_json" }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--New Box Finish-->
         </div>
         <!-- Page end  -->
     </div>
@@ -713,5 +869,43 @@
     
     <!-- app JavaScript -->
     <script src="{% static 'js/app.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var datasetElement = document.getElementById("dataset");
+                var datasetJson = datasetElement.textContent;
+                var dataset = JSON.parse(datasetJson);
+                var filteredData = dataset.filter(function(item) {
+                    return item.total > 1000;
+                });
+                dates = []
+                totals = []
+                for (var i = 0; i < filteredData.length; i++) {
+                    dates.push(filteredData[i].date)
+                    totals.push(filteredData[i].total)
+                }
+                const ctx = document.getElementById('layout1-chart-5');
+                new Chart(ctx, {
+                type: 'bar',
+                    data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Totas Price',
+                        data: totals,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                        beginAtZero: true
+                        }
+                    }
+                }
+            });
+            });
+        </script>
   </body>
 </html>
