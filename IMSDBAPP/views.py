@@ -301,28 +301,32 @@ def UpdateSale(request, id):
 @login_required(login_url='signin')
 def Addreturn(request):
 
-    #Order Id Wise Lookup --------------------- Start
+    #Product Id Wise Lookup --------------------- Start
+    lookupCode = request.GET.get('order_id')
     try:
-        lookupCode = request.GET.get('order_id')
         if lookupCode:
-            category = AddSale.objects.get(product_id=lookupCode)
+            category = AddSale.objects.get(order_id=lookupCode)
+            product_id = category.product_id
             product_name = category.product_name
             product_category = category.product_category
             customer_name = category.customer_name
             customer_phone = category.customer_phone
             customer_email = category.customer_email
+            order_quantity = category.order_quantity
             order_discount = category.order_discount
             payment_status = category.payment_status
-            
+
             response_data = {
                 'status': 'success',
+                'product_id': product_id,
                 'product_name': product_name,
                 'product_category': product_category,
                 'customer_name': customer_name,
                 'customer_phone': customer_phone,
                 'customer_email': customer_email,
+                'order_quantity': order_quantity,
                 'order_discount': order_discount,
-                'payment_status':payment_status,
+                'payment_status': payment_status,
             }
             return JsonResponse(response_data)
     except Exception as e:
@@ -332,17 +336,20 @@ def Addreturn(request):
         return JsonResponse(response_data)
     
     #lookup --------------------- End
+   
 
     message=''
     if request.method == "POST":
 
         date = request.POST.get('date')
         order_id = request.POST.get('order_id')
+        product_id = request.POST.get('product_id')
         product_name = request.POST.get('product_name')
         product_category = request.POST.get('product_category')
         customer_name = request.POST.get('customer_name')
         customer_phone = request.POST.get('customer_phone')
         customer_email = request.POST.get('customer_email')
+        order_quantity = request.POST.get('order_quantity')
         return_quantity = request.POST.get('return_quantity')
         return_price = request.POST.get('return_price')
         payment_status = request.POST.get('payment_status')
@@ -351,19 +358,44 @@ def Addreturn(request):
         add_return = AddReturn(
             date=date,
             order_id=order_id,
+            product_id=product_id,
             product_name=product_name,
             product_category=product_category,
             customer_name=customer_name,
             customer_phone=customer_phone,
             customer_email=customer_email,
+            order_quantity=order_quantity,
             return_quantity=return_quantity,
             return_price=return_price,
             payment_status=payment_status,
             note=note
             )
         add_return.save()
+        sale_return = AddSale.objects.get(order_id=order_id)
+        current_quantity = sale_return.order_quantity
+        new_quantity = int(current_quantity) - int(return_quantity)
+        sale_return.order_quantity = new_quantity
 
-        message="Return Product Added Successfully"
+        current_amount = sale_return.order_discount
+        amount = int(sale_return.unit_price) * int(return_quantity)
+        new_amount = int(current_amount) - int(amount)
+        sale_return.order_discount = new_amount
+        sale_return.save()
+
+        purchsae_return = AddPurchase.objects.get(product_id=product_id)
+        current_quantity = purchsae_return.product_quantity
+        new_quantity = int(current_quantity) + int(return_quantity)
+        purchsae_return.product_quantity = new_quantity
+
+        amounts = int(purchsae_return.unit_price) * int(return_quantity)
+        current_amount = purchsae_return.total_price
+        new_amounts = int(current_amount) + int(amounts)
+        purchsae_return.total_price = new_amounts
+        purchsae_return.save()
+
+        # return JsonResponse({'status':'success','new_stock_quantity':new_quantity})
+
+    #message="Return Product Added Successfully"
 
 
     Name = request.user
@@ -461,7 +493,7 @@ def Addsale(request):
         order_id = request.POST.get('order_id')
         brand_name = request.POST.get('brand_name')
         supplier_name = request.POST.get('supplier_name')
-        code = request.POST.get('code')
+        product_id = request.POST.get('product_id')
         customer_name = request.POST.get('customer_name')
         customer_email = request.POST.get('customer_email')
         customer_phone = request.POST.get('customer_phone')
@@ -480,7 +512,7 @@ def Addsale(request):
         sale_status = request.POST.get('sale_status')
         payment_status = request.POST.get('payment_status')
         note = request.POST.get('note')
-        purchase_image = AddPurchase.objects.get(product_id=code)
+        purchase_image = AddPurchase.objects.get(product_id=product_id)
         add_saledata = AddSale(
                 date=date,
                 product_name=product_name,
@@ -488,7 +520,7 @@ def Addsale(request):
                 order_id=order_id,
                 brand_name=brand_name,
                 supplier_name=supplier_name,
-                code=code,
+                product_id=product_id,
                 customer_name=customer_name,
                 customer_email=customer_email,
                 customer_phone=customer_phone,
@@ -509,15 +541,16 @@ def Addsale(request):
                 note=note
                 )
         add_saledata.save()
-        purchase = AddPurchase.objects.get(product_id=code)
+        purchase = AddPurchase.objects.get(product_id=product_id) # Code Means Purchase ID
         current_quantity = purchase.product_quantity
         current_total = purchase.total_price
         new_quantity = int(current_quantity) - int(order_quantity)
         new_total = int(current_total) - int(order_discount) # "order_discount" is a Total Payment Amount
         purchase.product_quantity = new_quantity
         purchase.total_price = new_total  
-        purchase.save() 
-        return JsonResponse({'status':'success','new_stock_quantity':new_quantity ,'new_stock_quantity':new_total})
+        purchase.save()
+
+        return JsonResponse({'status':'success','new_stock_quantity':new_quantity})
 
     #message="Sales Added Successfully"
 
@@ -525,7 +558,6 @@ def Addsale(request):
     
     Name = request.user
     return render(request, 'backend/page-add-sale.html', locals())
-
 @login_required(login_url='signin')
 def Listsale(request):
     sales = AddSale.objects.all()
@@ -789,7 +821,6 @@ def export_stock_summary_to_excel(request):
             data.append({
                 "Purchase Date": i.date,
                 "Product Id": i.product_id,
-                "Order Id": i.id,
                 "Product Name": i.product_name,
                 "Product Category": i.product_category,
                 "Brand Name": i.brand_name,

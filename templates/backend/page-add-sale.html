@@ -621,7 +621,7 @@
                                             <div class="form-group">
                                                 <label>Purchase ID *</label>
                                                 <input type="text" class="form-control" placeholder="Enter purchase id"
-                                                    name="code" id="lookupcode" required>
+                                                    name="product_id" id="lookupcode" required>
                                                 <div class="help-block with-errors"></div>
                                             </div>
                                         </div>
@@ -734,7 +734,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Profit % *</label>
+                                                <label>Tax% *</label>
                                                 <input type="text" class="form-control" placeholder="Enter Tax"
                                                     name="order_tax" id="order_tax" required>
                                                 <div class="help-block with-errors"></div>
@@ -934,8 +934,6 @@
                     var _inputKey = $(this).attr('name'); // Get the input name instead of data attribute
                     formData.append(_inputKey, _inputVal);
                 });
-                // var product_image_ = document.getElementById('product_image').files[0];
-                // formData.append('product_image_', product_image_)
 
                 $.ajax({
                     url: window.location.href,

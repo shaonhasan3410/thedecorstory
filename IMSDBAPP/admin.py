@@ -9,7 +9,7 @@ admin.site.register(AddCategory,AddCategoryAdmin)
 
 
 class AddSaleAdmin(admin.ModelAdmin):
-    list_display = ('date','product_name','product_category','order_id','brand_name','code','customer_name')
+    list_display = ('date','product_name','product_category','order_id','brand_name','product_id','customer_name')
 
 admin.site.register(AddSale,AddSaleAdmin)
 

@@ -556,12 +556,13 @@
                             <th><b style="Color: transparent;">........</b>Date<b style="Color: transparent;">........</b></th>
                             <th><b style="Color: transparent;">........</b>Product Information<b style="Color: transparent;">........</b></th>
                             <th><b style="Color: transparent;">..</b>Order ID</th>
+                            <th><b style="Color: transparent;">..</b>Product ID</th>
                             <th><b style="Color: transparent;">..</b>Customer Name<b style="Color: transparent;">..</b></th>
                             <th><b style="Color: transparent;">...</b>Customer Phone<b style="Color: transparent;">...</b></th>
                             <th><b style="Color: transparent;">........</b>Customer Email<b style="Color: transparent;">........</b></th>
                             <th>Order Qty</th>
                             <th>Unit Price</th>
-                            <th>Profit %</th>
+                            <th>Tax Amount</th>
                             <th>Shipping Charge</th>
                             <th>Payment Amount</th>
                             <th>Due Amount</th>
@@ -590,6 +591,7 @@
                                 </div>
                             </td>
                             <td>{{sale.order_id}}</td>
+                            <td>{{sale.product_id}}</td> <!--Code means product ID-->
                             <td>{{sale.customer_name}}</td>
                             <td>{{sale.customer_phone}}</td>
                             <td>{{sale.customer_email}}</td>
@@ -606,7 +608,7 @@
                                     <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
                                         href="#"><i class="ri-eye-line mr-0"></i></a>
                                     <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                        href="{% url 'updatesale' sale.id %}"><i class="ri-pencil-line mr-0"></i></a>
+                                        href="#"><i class="ri-pencil-line mr-0"></i></a>
                                     <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
                                         href="{% url 'deletesale' sale.id %}"><i class="ri-delete-bin-line mr-0"></i></a>
                                 </div>
