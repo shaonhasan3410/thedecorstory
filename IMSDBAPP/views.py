@@ -1014,10 +1014,12 @@ def Base(request):
     order_quantity = AddSale.objects.aggregate(order_quantity=Sum('order_quantity'))['order_quantity']
     shipping_charge = AddSale.objects.aggregate(shipping_charge=Sum('shipping_charge'))['shipping_charge']
     total_purchase_cost = AddPurchase.objects.aggregate(total_cost=Sum('total_price'))['total_cost']
-    order_price = unit_price * order_quantity
-    order_price_with_ship = order_price + shipping_charge
-
-    profit_margin = total_order_amount - order_price_with_ship
+    if unit_price is not None and order_quantity is not None:
+        order_price = unit_price * order_quantity
+        order_price_with_ship = order_price + shipping_charge
+        profit_margin = total_order_amount - order_price_with_ship
+    else:
+        order_price = 0
 
     return render(request, 'index.html', locals())
 
