@@ -5,7 +5,7 @@ from django.urls import path, include
 urlpatterns = [
 
     path('dashboard/', Base, name = 'home'),
-    path('sign_up/', Sign_up, name = 'signup'),
+    path('createsuperusers/', Sign_up, name = 'signup'),
     path('', Sign_In, name = 'signin'),
     path('logout/', Logout, name = 'logout'),
     path('add_customers/', Addcustomers, name = 'addcustomers'),
@@ -30,7 +30,6 @@ urlpatterns = [
     path('updatepurchase/<int:id>', UpdatePurchase, name='updatepurchase'),
     path('deletereturn/<int:id>', DeleteReturn, name='deletereturn'),
     path('deletesale/<int:id>', DeleteSale, name='deletesale'),
-    path('updatesale/<int:id>', UpdateSale, name='updatesale'),
     path('deletesupplier/<int:id>', DeleteSupplier, name='deletesupplier'),
 
 ]

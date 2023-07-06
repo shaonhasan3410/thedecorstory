@@ -53,12 +53,14 @@ def Listcustomers(request):
     Name = request.user
     return render(request, 'backend/page-list-customers.html', locals())
 
+@login_required(login_url='signin')
 def DeleteCustomer(request, id):
     obj = AddCustomer.objects.get(id=id)
     obj.delete()
 
     return redirect('customerlist')
 
+@login_required(login_url='signin')
 def Addpurchase(request):
 
     #message=''
@@ -131,12 +133,14 @@ def Listpurchase(request):
     Name = request.user
     return render(request, 'backend/page-list-purchase.html', locals())
 
+@login_required(login_url='signin')
 def DeletePurchase(request, id):
     obj = AddPurchase.objects.get(id=id)
     obj.delete()
 
     return redirect('purchaselist')
 
+@login_required(login_url='signin')
 def UpdatePurchase(request, id):
     product = AddPurchase.objects.get(id=id)
     if request.method == "POST":
@@ -209,6 +213,7 @@ def UpdatePurchase(request, id):
     
     return render(request, 'backend/update-add-purchase.html', locals())
 
+@login_required(login_url='signin')
 def UpdateSale(request, id):
     product = AddSale.objects.get(id=id)
     if request.method == "POST":
@@ -411,12 +416,14 @@ def Listreturn(request):
     Name = request.user
     return render(request, 'backend/page-list-returns.html', locals())
 
+@login_required(login_url='signin')
 def DeleteReturn(request, id):
     obj = AddReturn.objects.get(id=id)
     obj.delete()
 
     return redirect('returnlist')
 
+@login_required(login_url='signin')
 def Addsale(request):
 
     #message=''
@@ -558,6 +565,8 @@ def Addsale(request):
     
     Name = request.user
     return render(request, 'backend/page-add-sale.html', locals())
+
+
 @login_required(login_url='signin')
 def Listsale(request):
     sales = AddSale.objects.all()
@@ -569,6 +578,7 @@ def Listsale(request):
     Name = request.user
     return render(request, 'backend/page-list-sale.html', locals())
 
+@login_required(login_url='signin')
 def DeleteSale(request, id):
     obj = AddSale.objects.get(id=id)
     obj.delete()
@@ -609,6 +619,7 @@ def Listsupplier(request):
     Name = request.user
     return render(request, 'backend/page-list-suppliers.html', locals())
 
+@login_required(login_url='signin')
 def DeleteSupplier(request, id):
     obj = AddSupplier.objects.get(id=id)
     obj.delete()
@@ -896,6 +907,7 @@ def Privacy(request):
 def Terms(request):
     return render(request, 'backend/terms-of-service.html')
 
+
 def get_greeting():
     current_time = datetime.datetime.now().time()
     noon_start = datetime.time(12, 0)
@@ -921,6 +933,7 @@ def Base(request):
     Name = request.user
     stock_report = AddPurchase.objects.all()
     sale_stock = AddSale.objects.filter(payment_status="Due")
+    return_stock = AddReturn.objects.all()
 
 # Calculate Daily Sale Start
     sales = AddSale.objects.all()
@@ -966,6 +979,13 @@ def Base(request):
     ).order_by('total_order_amount')
     # Customer Name Wise Summary End
 
+    # Return Summary Start
+    return_stocks = return_stock.values('customer_name','customer_email','customer_phone','product_name','product_category').annotate(
+        total_order_quantity=Sum('order_quantity'),
+        total_return_quantity=Sum('return_quantity'),
+    ).order_by('total_return_quantity')
+    # Return Summary Summary End
+
     # supplier Name Wise Start
     supplier_stock = stock_report.values('supplier_name').annotate(
         total_product_quantity=Sum('product_quantity'),
@@ -981,7 +1001,7 @@ def Base(request):
     # Category Name Wise End
 
     # Product Name Wise Stock Summary Start
-    grouped_stock = stock_report.values('product_name').annotate(
+    grouped_stock = stock_report.values('product_name','product_category','brand_name','supplier_name','product_color','product_size').annotate(
         total_product_quantity=Sum('product_quantity'),
         total_price=Sum('total_price')
     ).order_by('product_name')
