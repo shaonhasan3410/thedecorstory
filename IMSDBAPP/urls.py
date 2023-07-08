@@ -30,6 +30,7 @@ urlpatterns = [
     path('updatepurchase/<int:id>', UpdatePurchase, name='updatepurchase'),
     path('deletereturn/<int:id>', DeleteReturn, name='deletereturn'),
     path('deletesale/<int:id>', DeleteSale, name='deletesale'),
+    path('updatesale/<int:id>', UpdateSale, name='updatesale'),
     path('deletesupplier/<int:id>', DeleteSupplier, name='deletesupplier'),
 
 ]
