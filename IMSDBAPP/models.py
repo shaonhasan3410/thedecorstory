@@ -40,7 +40,7 @@ class AddSale(models.Model):
 
     @property
     def total_price(self):
-        return ((self.unit_price * self.order_quantity)+self.shipping_charge)
+        return ((self.unit_price * self.order_quantity) + (self.unit_price * (self.order_tax /100 )) + self.shipping_charge)
 
     @property
     def saling_price(self):
