@@ -1004,10 +1004,12 @@
 
             // Calculate the total amount
             var subtotal = unitPrice * orderQuantity;
-            var total = subtotal + (subtotal * (orderTax / 100)) + shippingCharge - discountAmount;
+            var total = subtotal + shippingCharge - discountAmount;
+            var totalunitprice = unitPrice + (unitPrice * (orderTax / 100));
 
             // Update the total amount input box
             document.getElementById("total_amount").value = total.toFixed(2); // "Total Amount" is a Due Amount
+            document.getElementById("unit_price").value = totalunitprice.toFixed(2);
         }
     </script>
 

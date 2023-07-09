@@ -22,7 +22,7 @@ class AddSale(models.Model):
     product_size = models.CharField(max_length=10, null=True, blank=True)
     stock_quantity = models.IntegerField(null=True, blank=True)
     order_quantity = models.IntegerField(null=True, blank=True)
-    unit_price = models.IntegerField(null=True, blank=True)
+    unit_price = models.FloatField(blank=True, null=True)
     order_tax = models.IntegerField(null=True, blank=True)
     order_discount = models.IntegerField(null=True, blank=True)
     shipping_charge = models.IntegerField(null=True, blank=True)
