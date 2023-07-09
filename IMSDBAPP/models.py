@@ -42,6 +42,10 @@ class AddSale(models.Model):
     def total_price(self):
         return ((self.unit_price * self.order_quantity)+self.shipping_charge)
 
+    @property
+    def saling_price(self):
+        return (self.unit_price + (self.unit_price * (self.order_tax / 100)))
+
     
 
 class AddPurchase(models.Model):

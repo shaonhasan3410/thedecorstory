@@ -735,6 +735,13 @@ def Invoice(request):
                 total_price[unique.total_price] += 1
             else:
                 total_price[unique.total_price] = 1
+
+        saling_price = dict()
+        for unique in orders:
+            if unique.saling_price in saling_price:
+                saling_price[unique.saling_price] += 1
+            else:
+                saling_price[unique.saling_price] = 1
         
         shipping_address = dict()
         for unique in orders:
@@ -813,7 +820,7 @@ def Invoice(request):
         # Calculate total
         totals = 0
         for i in orders:
-            totals += i.unit_price * i.order_quantity
+            totals += (i.unit_price + (i.unit_price * (i.order_tax / 100))) * i.order_quantity
     except:
         pass
     return render(request, 'backend/pages-invoice.html', locals())
