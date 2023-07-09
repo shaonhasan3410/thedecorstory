@@ -29,7 +29,7 @@ class AddSale(models.Model):
     billing_address = models.TextField(null=True, blank=True)
     shipping_address = models.TextField(null=True, blank=True)
     product_image = models.ImageField(upload_to="Product_Image", null=True, blank=True)
-    total_amount = models.IntegerField() #Need to be support
+    total_amount = models.FloatField(blank=True, null=True) #Need to be support
     sale_status = models.CharField(max_length=20, null=True, blank=True)
     payment_status = models.CharField(max_length=20, null=True, blank=True)
     note = models.TextField(null=True, blank=True) #Need to be support
