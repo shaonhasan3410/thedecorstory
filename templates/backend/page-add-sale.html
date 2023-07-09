@@ -1003,9 +1003,9 @@
             var shippingCharge = parseFloat(document.getElementById("shipping_charge").value);
 
             // Calculate the total amount
-            var subtotal = unitPrice * orderQuantity;
-            var total = subtotal + shippingCharge - discountAmount;
             var totalunitprice = unitPrice + (unitPrice * (orderTax / 100));
+            var subtotal = totalunitprice * orderQuantity;
+            var total = subtotal + shippingCharge - discountAmount;
 
             // Update the total amount input box
             document.getElementById("total_amount").value = total.toFixed(2); // "Total Amount" is a Due Amount
