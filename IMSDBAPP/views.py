@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 # shishr code start
@@ -803,7 +804,6 @@ def Invoice(request):
         # get total 
         total = 0
         for i in orders:
-            print(i.order_discount) # "order_discount" is total Payment Amount
             total = total + i.order_discount #"order_discount" is total Payment Amount
 
         # get total 
@@ -820,7 +820,7 @@ def Invoice(request):
         # Calculate total
         totals = 0
         for i in orders:
-            totals += (i.unit_price + (i.unit_price * (i.order_tax / 100))) * i.order_quantity
+            totals += (i.unit_price + (i.unit_price * (i.order_tax / 100))) * i.order_quantity - .5
     except:
         pass
     return render(request, 'backend/pages-invoice.html', locals())
@@ -1018,15 +1018,28 @@ def Base(request):
     total_order_qty = AddSale.objects.aggregate(total_qty=Sum('order_quantity'))['total_qty']
     total_order_amount = AddSale.objects.aggregate(order_discount=Sum('order_discount'))['order_discount']
     unit_price = AddSale.objects.aggregate(unit_price=Sum('unit_price'))['unit_price']
+    order_tax = AddSale.objects.aggregate(order_tax=Sum('order_tax'))['order_tax']
     order_quantity = AddSale.objects.aggregate(order_quantity=Sum('order_quantity'))['order_quantity']
     shipping_charge = AddSale.objects.aggregate(shipping_charge=Sum('shipping_charge'))['shipping_charge']
     total_purchase_cost = AddPurchase.objects.aggregate(total_cost=Sum('total_price'))['total_cost']
-    if unit_price is not None and order_quantity is not None:
-        order_price = unit_price * order_quantity
-        order_price_with_ship = order_price + shipping_charge
-        profit_margin = total_order_amount - order_price_with_ship
-    else:
-        order_price = 0
+    # if unit_price is not None and order_quantity is not None:
+    #     sale_price = total_order_amount
+    #     order_amount = sale_price - shipping_charge
+    #     order_tax_amount = unit_price * order_quantity
+    #     print(order_tax_amount)
+
+    #     profit_margin = sale_price - order_tax_amount
+    # else:
+    #     order_price = 0
+    profit_margin = 0
+    for i in top_product:
+        total_price = i.total_price
+        # print(total_price)
+        purchase_price = i.purchase_price
+        # print(purchase_price)
+        total_profit_margin = total_price - purchase_price
+        profit_margin += total_profit_margin
+    
 
     return render(request, 'index.html', locals())
 

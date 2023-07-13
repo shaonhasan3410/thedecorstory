@@ -1,3 +1,4 @@
+
 from django.db import models
 
 class AddCategory(models.Model):
@@ -22,14 +23,14 @@ class AddSale(models.Model):
     product_size = models.CharField(max_length=10, null=True, blank=True)
     stock_quantity = models.IntegerField(null=True, blank=True)
     order_quantity = models.IntegerField(null=True, blank=True)
-    unit_price = models.FloatField(blank=True, null=True)
+    unit_price = models.IntegerField(blank=True, null=True)
     order_tax = models.IntegerField(null=True, blank=True)
     order_discount = models.IntegerField(null=True, blank=True)
     shipping_charge = models.IntegerField(null=True, blank=True)
     billing_address = models.TextField(null=True, blank=True)
     shipping_address = models.TextField(null=True, blank=True)
     product_image = models.ImageField(upload_to="Product_Image", null=True, blank=True)
-    total_amount = models.FloatField(blank=True, null=True) #Need to be support
+    total_amount = models.IntegerField(blank=True, null=True) #Need to be support
     sale_status = models.CharField(max_length=20, null=True, blank=True)
     payment_status = models.CharField(max_length=20, null=True, blank=True)
     note = models.TextField(null=True, blank=True) #Need to be support
@@ -40,7 +41,11 @@ class AddSale(models.Model):
 
     @property
     def total_price(self):
-        return ((self.unit_price * self.order_quantity) + (self.unit_price * (self.order_tax /100 )) + self.shipping_charge)
+        return (self.unit_price + (self.unit_price * (self.order_tax / 100))) * self.order_quantity
+    
+    @property
+    def purchase_price(self):
+        return self.unit_price * self.order_quantity
 
     @property
     def saling_price(self):
@@ -84,8 +89,8 @@ class AddReturn(models.Model):
     customer_phone = models.CharField(max_length=30, null=True, blank=True) #Need to be support
     customer_email = models.EmailField(null=True, blank=True)
     order_quantity = models.IntegerField(null=True, blank=True)
-    return_quantity = models.PositiveIntegerField(null=True, blank=True)
-    return_price = models.PositiveIntegerField(null=True, blank=True)
+    return_quantity = models.IntegerField(null=True, blank=True)
+    return_price = models.IntegerField(null=True, blank=True)
     payment_status = models.CharField(max_length=20, null=True, blank=True)
     note = models.TextField(null=True, blank=True) #Need to be support
     purchase_order_id = models.ForeignKey(AddPurchase, on_delete=models.CASCADE, null=True, blank=True)
