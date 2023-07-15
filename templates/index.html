@@ -17,6 +17,7 @@
         
     </head>
   <body class="  ">
+    {% load humanize %}
     <!-- loader Start -->
     <div id="loading">
           <div id="loading-center">
@@ -506,7 +507,7 @@
                                     </div>
                                     <div>
                                         <p class="mb-2">Total Purchase</p>
-                                        <h4>৳ {{total_purchase_cost}}</h4>
+                                        <h4>৳ {{total_purchase_cost|intcomma}}</h4>
                                     </div>
                                 </div>
                                 <div class="iq-progress-bar mt-2">
@@ -525,7 +526,7 @@
                                     </div>
                                     <div>
                                         <p class="mb-2">Total Sales</p>
-                                        <h4>৳ {{total_order_amount}}</h4>
+                                        <h4>৳ {{total_order_amount|intcomma}}</h4>
                                     </div>
                                 </div>                                
                                 <div class="iq-progress-bar mt-2">
@@ -544,7 +545,7 @@
                                     </div>
                                     <div>
                                         <p class="mb-2">Product Sold</p>
-                                        <h4>{{total_order_qty}}</h4>
+                                        <h4>{{total_order_qty|intcomma}}</h4>
                                     </div>
                                 </div>
                                 <div class="iq-progress-bar mt-2">
@@ -563,7 +564,7 @@
                                     </div>
                                     <div>
                                         <p class="mb-2">Profit and Loss (PNL)</p>
-                                        <h4>৳ {{profit_margin|floatformat:0}}</h4>
+                                        <h4>৳ {{profit_margin|floatformat:0|intcomma}}</h4>
                                     </div>
                                 </div>                                
                                 <div class="iq-progress-bar mt-2">
@@ -623,8 +624,8 @@
                                         <tr>
                                             <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ forloop.counter }}</td>
                                             <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.supplier_name }}</td>
-                                            <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_product_quantity }}</td>
-                                            <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_price }}</td>
+                                            <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_product_quantity|intcomma }}</td>
+                                            <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_price|intcomma }}</td>
                                         </tr>
                                     {% endfor %}
                                     
@@ -723,8 +724,8 @@
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.supplier_name }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.product_color }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.product_size }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_product_quantity }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_price }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_product_quantity|intcomma }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_price|intcomma }}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -770,8 +771,8 @@
                                     <tr>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ forloop.counter }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.customer_name }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_order_quantity }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_order_amount }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_order_quantity|intcomma }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_order_amount|intcomma }}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -817,8 +818,8 @@
                                     <tr>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ forloop.counter }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.product_name }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_product_quantity }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_price }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_product_quantity|intcomma }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_price|intcomma }}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -869,8 +870,8 @@
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.customer_name }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.customer_email }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.customer_phone }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_order_quantity }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_return_quantity }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_order_quantity|intcomma }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_return_quantity|intcomma }}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

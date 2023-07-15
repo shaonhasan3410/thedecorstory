@@ -15,6 +15,7 @@
       <link rel="stylesheet" href="{% static 'vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css' %}">
       <link rel="stylesheet" href="{% static 'vendor/remixicon/fonts/remixicon.css' %}">  </head>
   <body class="  ">
+    {% load humanize %}
     <!-- loader Start -->
     <div id="loading">
           <div id="loading-center">
@@ -587,8 +588,8 @@
                                 <td>{{stock_summary.product_category}}</td>
                                 <td>{{stock_summary.brand_name}}</td>
                                 <td>{{stock_summary.supplier_name}}</td>
-                                <td>{{ stock_summary.product_quantity }}</td>
-                                <td>{{ stock_summary.total_price }}</td>
+                                <td>{{ stock_summary.product_quantity|intcomma }}</td>
+                                <td>{{ stock_summary.total_price|intcomma }}</td>
                                 <td>
                                     <div class="d-flex align-items-center list-action">
                                         <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"

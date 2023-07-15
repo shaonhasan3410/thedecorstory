@@ -15,6 +15,7 @@
       <link rel="stylesheet" href="{% static 'vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css' %}">
       <link rel="stylesheet" href="{% static 'vendor/remixicon/fonts/remixicon.css' %}">  </head>
   <body class="  ">
+    {% load humanize %}
     <!-- loader Start -->
     <div id="loading">
           <div id="loading-center">
@@ -599,8 +600,8 @@
                             <td>{{sale.unit_price}}</td>
                             <td>{{sale.order_tax}}</td>
                             <td>{{sale.shipping_charge}}</td>
-                            <td>{{sale.order_discount}}</td> <!--"Order Discount" is Payment Amount-->
-                            <td><b>{{sale.total_amount}}</b></td> <!--"total amount" is Due amount-->
+                            <td>{{sale.order_discount|intcomma}}</td> <!--"Order Discount" is Payment Amount-->
+                            <td><b>{{sale.total_amount|intcomma}}</b></td> <!--"total amount" is Due amount-->
                             <td><div class="badge badge-success">{{sale.sale_status}}</div></td>
                             <td><div class="badge badge-success">{{sale.payment_status}}</div></td>
                             <td>
