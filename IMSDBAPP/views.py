@@ -308,29 +308,31 @@ def UpdateSale(request, id):
 def Addreturn(request):
 
     #Product Id Wise Lookup --------------------- Start
-    lookupCode = request.GET.get('order_id')
+    lookupCode = request.GET.get('product_id')
     try:
         if lookupCode:
-            category = AddSale.objects.get(order_id=lookupCode)
-            product_id = category.product_id
+            category = AddSale.objects.get(product_id=lookupCode)
+            order_id = category.order_id
             product_name = category.product_name
             product_category = category.product_category
             customer_name = category.customer_name
             customer_phone = category.customer_phone
             customer_email = category.customer_email
             order_quantity = category.order_quantity
+            unit_price = category.unit_price
             order_discount = category.order_discount
             payment_status = category.payment_status
 
             response_data = {
                 'status': 'success',
-                'product_id': product_id,
+                'order_id': order_id,
                 'product_name': product_name,
                 'product_category': product_category,
                 'customer_name': customer_name,
                 'customer_phone': customer_phone,
                 'customer_email': customer_email,
                 'order_quantity': order_quantity,
+                'unit_price': unit_price,
                 'order_discount': order_discount,
                 'payment_status': payment_status,
             }
@@ -356,6 +358,7 @@ def Addreturn(request):
         customer_phone = request.POST.get('customer_phone')
         customer_email = request.POST.get('customer_email')
         order_quantity = request.POST.get('order_quantity')
+        unit_price = request.POST.get('unit_price')
         return_quantity = request.POST.get('return_quantity')
         return_price = request.POST.get('return_price')
         payment_status = request.POST.get('payment_status')
@@ -371,13 +374,14 @@ def Addreturn(request):
             customer_phone=customer_phone,
             customer_email=customer_email,
             order_quantity=order_quantity,
+            unit_price=unit_price,
             return_quantity=return_quantity,
             return_price=return_price,
             payment_status=payment_status,
             note=note
             )
         add_return.save()
-        sale_return = AddSale.objects.get(order_id=order_id)
+        sale_return = AddSale.objects.get(product_id=product_id)
         current_quantity = sale_return.order_quantity
         new_quantity = int(current_quantity) - int(return_quantity)
         sale_return.order_quantity = new_quantity
@@ -401,7 +405,7 @@ def Addreturn(request):
 
         # return JsonResponse({'status':'success','new_stock_quantity':new_quantity})
 
-    #message="Return Product Added Successfully"
+    message="Return Product Added Successfully"
 
 
     Name = request.user

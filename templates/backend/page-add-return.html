@@ -545,15 +545,15 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Order ID *</label>
-                                        <input type="text" class="form-control" placeholder="Enter Order ID" name="order_id" id="lookupcode" required>
+                                        <label>Product ID *</label>
+                                        <input type="text" class="form-control" placeholder="Enter Product ID" name="product_id" id="lookupcode" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Product ID *</label>
-                                        <input type="text" class="form-control" placeholder="Enter Product ID" name="product_id" id="product_id" required readonly>
+                                        <label>Order ID *</label>
+                                        <input type="text" class="form-control" placeholder="Enter Order ID" name="order_id" id="order_id" required readonly>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
@@ -601,12 +601,19 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
+                                        <label>Unit Price *</label>
+                                        <input type="text" class="form-control" placeholder="Unit Price" name="unit_price" id="unit_price" required readonly>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
                                         <label>Retuen Quantity *</label>
                                         <input type="text" class="form-control" placeholder="Enter Return Quantity" name="return_quantity" id="return_quantity" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Retuen Amount *</label>
                                         <input type="text" class="form-control" placeholder="Retuen Amount" name="order_discount" id="order_discount" required readonly>
@@ -681,13 +688,14 @@
         
         lookup.on('change', function () {
             if (lookup.val() === "") {
-                document.getElementById("product_id").value = "Product id";
+                document.getElementById("order_id").value = "Order Id";
                 document.getElementById("product_name").value = "Product Name";
                 document.getElementById("product_category").value = "Product Category";
                 document.getElementById("customer_name").value = "Customer Name";
                 document.getElementById("customer_phone").value = "Customer Phone";
                 document.getElementById("customer_email").value = "Customer Email";
                 document.getElementById("order_quantity").value = "Order Quantity";
+                document.getElementById("unit_price").value = "Unit Price";
                 document.getElementById("order_discount").value = "Order Discount";
                 document.getElementById("payment_status").value = "Payment Status";
             }
@@ -695,28 +703,30 @@
                 url: window.location.href,
                 type: 'GET',
                 data: {
-                    'order_id': lookup.val(),
+                    'product_id': lookup.val(),
                 },
                 success: function (res) {
                     if (res.status === 'success') {
-                        document.getElementById("product_id").value = res.product_id;
+                        document.getElementById("order_id").value = res.order_id;
                         document.getElementById("product_name").value = res.product_name;
                         document.getElementById("product_category").value = res.product_category;
                         document.getElementById("customer_name").value = res.customer_name;
                         document.getElementById("customer_phone").value = res.customer_phone;
                         document.getElementById("customer_email").value = res.customer_email;
                         document.getElementById("order_quantity").value = res.order_quantity;
+                        document.getElementById("unit_price").value = res.unit_price;
                         document.getElementById("order_discount").value = res.order_discount;
                         document.getElementById("payment_status").value = res.payment_status;
                     }
                     if (res.status === 'failed') {
-                        document.getElementById("product_id").value = "Product id";
+                        document.getElementById("order_id").value = "Order Id";
                         document.getElementById("product_name").value = "Product Name";
                         document.getElementById("product_category").value = "Product Category";
                         document.getElementById("customer_name").value = "Customer Name";
                         document.getElementById("customer_phone").value = "Customer Phone";
                         document.getElementById("customer_email").value = "Customer Email";
                         document.getElementById("order_quantity").value = "Order Quantity";
+                        document.getElementById("unit_price").value = "Unit Price";
                         document.getElementById("order_discount").value = "Order Discount";
                         document.getElementById("payment_status").value = "Payment Status";
                     }

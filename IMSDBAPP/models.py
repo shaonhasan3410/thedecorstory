@@ -1,4 +1,3 @@
-
 from django.db import models
 
 class AddCategory(models.Model):
@@ -89,6 +88,7 @@ class AddReturn(models.Model):
     customer_phone = models.CharField(max_length=30, null=True, blank=True) #Need to be support
     customer_email = models.EmailField(null=True, blank=True)
     order_quantity = models.IntegerField(null=True, blank=True)
+    unit_price = models.IntegerField(null=True, blank=True)
     return_quantity = models.IntegerField(null=True, blank=True)
     return_price = models.IntegerField(null=True, blank=True)
     payment_status = models.CharField(max_length=20, null=True, blank=True)
