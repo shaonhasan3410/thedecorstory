@@ -596,7 +596,7 @@
                             <td><div class="badge badge-success">{{purchase.purchase_status}}</div></td>
                             <td>{{purchase.product_quantity}}</td>
                             <td>{{purchase.unit_price}}</td>
-                            <td>{{purchase.total_price|intcomma}}</td>                            
+                            <td>{{purchase.total_price|floatformat:0||intcomma}}</td>
                             <td><div class="badge badge-warning">{{purchase.payment_status}}</div></td>
                             <td>
                                 <div class="d-flex align-items-center list-action">

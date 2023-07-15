@@ -600,8 +600,8 @@
                             <td>{{sale.unit_price}}</td>
                             <td>{{sale.order_tax}}</td>
                             <td>{{sale.shipping_charge}}</td>
-                            <td>{{sale.order_discount|intcomma}}</td> <!--"Order Discount" is Payment Amount-->
-                            <td><b>{{sale.total_amount|intcomma}}</b></td> <!--"total amount" is Due amount-->
+                            <td>{{sale.order_discount|floatformat:0|intcomma}}</td> <!--"Order Discount" is Payment Amount-->
+                            <td><b>{{sale.total_amount|floatformat:0|intcomma}}</b></td> <!--"total amount" is Due amount-->
                             <td><div class="badge badge-success">{{sale.sale_status}}</div></td>
                             <td><div class="badge badge-success">{{sale.payment_status}}</div></td>
                             <td>

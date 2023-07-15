@@ -946,7 +946,7 @@ def Base(request):
     sales = AddSale.objects.all()
     dataset = []
     for i in sales:
-        dataset.append({'date':i.date.strftime("%Y-%m-%d"),'total':i.order_discount})
+        dataset.append({'date':i.date.strftime("%d-%m-%y"),'total':i.order_discount})
 
     totals = {}
 

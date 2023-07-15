@@ -507,7 +507,7 @@
                                     </div>
                                     <div>
                                         <p class="mb-2">Total Purchase</p>
-                                        <h4>৳ {{total_purchase_cost|intcomma}}</h4>
+                                        <h4>৳ {{total_purchase_cost|floatformat:0|intcomma}}</h4>
                                     </div>
                                 </div>
                                 <div class="iq-progress-bar mt-2">
@@ -526,7 +526,7 @@
                                     </div>
                                     <div>
                                         <p class="mb-2">Total Sales</p>
-                                        <h4>৳ {{total_order_amount|intcomma}}</h4>
+                                        <h4>৳ {{total_order_amount|floatformat:0|intcomma}}</h4>
                                     </div>
                                 </div>                                
                                 <div class="iq-progress-bar mt-2">
@@ -545,7 +545,7 @@
                                     </div>
                                     <div>
                                         <p class="mb-2">Product Sold</p>
-                                        <h4>{{total_order_qty|intcomma}}</h4>
+                                        <h4>{{total_order_qty|intcomma|floatformat:0}}</h4>
                                     </div>
                                 </div>
                                 <div class="iq-progress-bar mt-2">
@@ -935,7 +935,7 @@
                 var datasetJson = datasetElement.textContent;
                 var dataset = JSON.parse(datasetJson);
                 var filteredData = dataset.filter(function(item) {
-                    return item.total > 1000;
+                    return item.total > 1;
                 });
                 dates = []
                 totals = []
