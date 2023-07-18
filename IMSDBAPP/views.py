@@ -307,25 +307,36 @@ def UpdateSale(request, id):
 @login_required(login_url='signin')
 def Addreturn(request):
 
-    #Product Id Wise Lookup --------------------- Start
+    # Product Id Wise Lookup --------------------- Start
     lookupCode = request.GET.get('product_id')
+    lookuporder = request.GET.get('order_id')
     try:
         if lookupCode:
-            category = AddSale.objects.get(product_id=lookupCode)
-            order_id = category.order_id
-            product_name = category.product_name
-            product_category = category.product_category
-            customer_name = category.customer_name
-            customer_phone = category.customer_phone
-            customer_email = category.customer_email
-            order_quantity = category.order_quantity
-            unit_price = category.unit_price
-            order_discount = category.order_discount
-            payment_status = category.payment_status
+            categorys = []
+            result = AddSale.objects.filter(order_id=lookuporder, product_id=lookupCode)
+            for category in result:
+                categorys.append(category.product_name)
+                categorys.append(category.product_category)
+                categorys.append(category.customer_name)
+                categorys.append(category.customer_phone)
+                categorys.append(category.customer_email)
+                categorys.append(category.order_quantity)
+                categorys.append(category.unit_price)
+                categorys.append(category.order_discount)
+                categorys.append(category.payment_status)
+                
+            product_name = categorys[0]
+            product_category = categorys[1]
+            customer_name = categorys[2]
+            customer_phone = categorys[3]
+            customer_email = categorys[4]
+            order_quantity = categorys[5]
+            unit_price = categorys[6]
+            order_discount = categorys[7]
+            payment_status = categorys[8]
 
             response_data = {
                 'status': 'success',
-                'order_id': order_id,
                 'product_name': product_name,
                 'product_category': product_category,
                 'customer_name': customer_name,
@@ -339,16 +350,15 @@ def Addreturn(request):
             return JsonResponse(response_data)
     except Exception as e:
         response_data = {
-                'status': 'failed'
-            }
+            'status': 'failed'
+        }
         return JsonResponse(response_data)
-    
+
+    lookuporder = request.GET.get('order_id')
     #lookup --------------------- End
-   
 
-    message=''
+    message = ''
     if request.method == "POST":
-
         date = request.POST.get('date')
         order_id = request.POST.get('order_id')
         product_id = request.POST.get('product_id')
@@ -379,7 +389,7 @@ def Addreturn(request):
             return_price=return_price,
             payment_status=payment_status,
             note=note
-            )
+        )
         add_return.save()
         sale_return = AddSale.objects.get(product_id=product_id)
         current_quantity = sale_return.order_quantity
@@ -405,8 +415,7 @@ def Addreturn(request):
 
         # return JsonResponse({'status':'success','new_stock_quantity':new_quantity})
 
-    message="Return Product Added Successfully"
-
+    #message="Return Product Added Successfully"
 
     Name = request.user
     return render(request, 'backend/page-add-return.html', locals())

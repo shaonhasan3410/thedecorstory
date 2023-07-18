@@ -553,7 +553,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Order ID *</label>
-                                        <input type="text" class="form-control" placeholder="Enter Order ID" name="order_id" id="order_id" required readonly>
+                                        <input type="text" class="form-control" placeholder="Enter Order ID" name="order_id" id="lookuporder" required readonly>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
@@ -684,55 +684,57 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
     <script>
-        var lookup = $("#lookupcode");
+        $(document).ready(function() {
+            var lookup = $("#lookupcode");
+            var lookupo = $("#lookuporder");
         
-        lookup.on('change', function () {
-            if (lookup.val() === "") {
-                document.getElementById("order_id").value = "Order Id";
-                document.getElementById("product_name").value = "Product Name";
-                document.getElementById("product_category").value = "Product Category";
-                document.getElementById("customer_name").value = "Customer Name";
-                document.getElementById("customer_phone").value = "Customer Phone";
-                document.getElementById("customer_email").value = "Customer Email";
-                document.getElementById("order_quantity").value = "Order Quantity";
-                document.getElementById("unit_price").value = "Unit Price";
-                document.getElementById("order_discount").value = "Order Discount";
-                document.getElementById("payment_status").value = "Payment Status";
+            function resetFields() {
+                $("#product_name").val("Product Name");
+                $("#product_category").val("Product Category");
+                $("#customer_name").val("Customer Name");
+                $("#customer_phone").val("Customer Phone");
+                $("#customer_email").val("Customer Email");
+                $("#order_quantity").val("Order Quantity");
+                $("#unit_price").val("Unit Price");
+                $("#order_discount").val("Order Discount");
+                $("#payment_status").val("Payment Status");
             }
-            $.ajax({
-                url: window.location.href,
-                type: 'GET',
-                data: {
-                    'product_id': lookup.val(),
-                },
-                success: function (res) {
-                    if (res.status === 'success') {
-                        document.getElementById("order_id").value = res.order_id;
-                        document.getElementById("product_name").value = res.product_name;
-                        document.getElementById("product_category").value = res.product_category;
-                        document.getElementById("customer_name").value = res.customer_name;
-                        document.getElementById("customer_phone").value = res.customer_phone;
-                        document.getElementById("customer_email").value = res.customer_email;
-                        document.getElementById("order_quantity").value = res.order_quantity;
-                        document.getElementById("unit_price").value = res.unit_price;
-                        document.getElementById("order_discount").value = res.order_discount;
-                        document.getElementById("payment_status").value = res.payment_status;
-                    }
-                    if (res.status === 'failed') {
-                        document.getElementById("order_id").value = "Order Id";
-                        document.getElementById("product_name").value = "Product Name";
-                        document.getElementById("product_category").value = "Product Category";
-                        document.getElementById("customer_name").value = "Customer Name";
-                        document.getElementById("customer_phone").value = "Customer Phone";
-                        document.getElementById("customer_email").value = "Customer Email";
-                        document.getElementById("order_quantity").value = "Order Quantity";
-                        document.getElementById("unit_price").value = "Unit Price";
-                        document.getElementById("order_discount").value = "Order Discount";
-                        document.getElementById("payment_status").value = "Payment Status";
-                    }
+        
+            lookupo.on('change', function() {
+                if (lookupo.val() === "") {
+                    resetFields();
+                } else {
+                    $.ajax({
+                        url: window.location.href,
+                        type: 'GET',
+                        data: {
+                            'order_id': lookupo.val(),
+                            'product_id': lookup.val(),
+                        },
+                        success: function(res) {
+                            if (res.status === 'success') {
+                                $("#product_name").val(res.product_name);
+                                $("#product_category").val(res.product_category);
+                                $("#customer_name").val(res.customer_name);
+                                $("#customer_phone").val(res.customer_phone);
+                                $("#customer_email").val(res.customer_email);
+                                $("#order_quantity").val(res.order_quantity);
+                                $("#unit_price").val(res.unit_price);
+                                $("#order_discount").val(res.order_discount);
+                                $("#payment_status").val(res.payment_status);
+                            } else if (res.status === 'failed') {
+                                resetFields();
+                            }
+                        },
+                        error: function(xhr, textStatus, errorThrown) {
+                            console.log("Error:", errorThrown);
+                            // Handle the error and display an appropriate message to the user
+                        }
+                    });
                 }
             });
         });
+        
     </script>
 
     <!--------------------Lookup code end --------------->
