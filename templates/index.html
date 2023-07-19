@@ -623,7 +623,7 @@
                                     {% for group in supplier_stock %}
                                         <tr>
                                             <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ forloop.counter }}</td>
-                                            <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.supplier_name }}</td>
+                                            <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ group.supplier_name }}</td>
                                             <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_product_quantity|intcomma }}</td>
                                             <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_price|intcomma }}</td>
                                         </tr>
@@ -718,10 +718,10 @@
                                     {% for group in grouped_stock %}
                                     <tr>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ forloop.counter}}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.product_name }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.product_category }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.brand_name }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.supplier_name }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ group.product_name }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ group.product_category }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ group.brand_name }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ group.supplier_name }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.product_color }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.product_size }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_product_quantity|intcomma }}</td>
@@ -770,7 +770,7 @@
                                     {% for order in customer_due %}
                                     <tr>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ forloop.counter }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.customer_name }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ order.customer_name }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_order_quantity|intcomma }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_order_amount|intcomma }}</td>
                                     </tr>
@@ -817,7 +817,7 @@
                                     {% for group in low_stock %}
                                     <tr>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ forloop.counter }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.product_name }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ group.product_name }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_product_quantity|intcomma }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ group.total_price|intcomma }}</td>
                                     </tr>
@@ -854,6 +854,8 @@
                                         <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">SN</th>
                                         <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Product Name</th>
                                         <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Product Category</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Order ID</th>
+                                        <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Product ID</th>
                                         <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Customer Name</th>
                                         <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Customer Email</th>
                                         <th style="border: 1px solid #dddddd; text-align: center; padding: 4px; background: lavender;">Customer Phone</th>
@@ -865,11 +867,13 @@
                                     {% for order in return_stocks %}
                                     <tr>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ forloop.counter }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.product_name }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.product_category }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.customer_name }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.customer_email }}</td>
-                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.customer_phone }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ order.product_name }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ order.product_category }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.order_id }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.product_id }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ order.customer_name }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ order.customer_email }}</td>
+                                        <td style="border: 1px solid #dddddd; text-align: left; padding: 4px;">{{ order.customer_phone }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_order_quantity|intcomma }}</td>
                                         <td style="border: 1px solid #dddddd; text-align: center; padding: 4px;">{{ order.total_return_quantity|intcomma }}</td>
                                     </tr>
