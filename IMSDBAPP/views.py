@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 # shishr code start
@@ -960,6 +959,7 @@ def Base(request):
     dataset = []
     for i in sales:
         dataset.append({'date':i.date.strftime("%d-%m-%y"),'total':i.order_discount})
+        print(dataset)
 
     totals = {}
 
@@ -1000,7 +1000,7 @@ def Base(request):
     # Customer Name Wise Summary End
 
     # Return Summary Start
-    return_stocks = return_stock.values('customer_name','customer_email','customer_phone','product_name','product_category','order_id','product_id').annotate(
+    return_stocks = return_stock.values('customer_name','customer_email','customer_phone','product_name','product_category').annotate(
         total_order_quantity=Sum('order_quantity'),
         total_return_quantity=Sum('return_quantity'),
     ).order_by('total_return_quantity')
